@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Máy tính online</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //vo hieu hoa box input va result
+            $(".box-input").attr("disable", "true");
+            $(".box-result").attr("disable", "true");
+            //vo hieu hoa cac phep chia, nhan va dau bang
+            $(".box-button button.multi").attr("disable", "true");
+            $(".box-button button.div").attr("disable", "true");
+            $(".box-button button.equal").attr("disable", "true");
+        });
+
+        //thuc hien hanh dong tren cac nut so
+        $(".box-button button.number").on("click", function () {
+            $char = $(this).html(); // la gia tri so moi bam
+            $value_input = $(".box-input").val(); // lay gia tri so co san trong input
+            $(".box-input").val($char + $value_input); // 
+            $(".box-button button.operation").removeAttr("disable");
+            $(".box-button button.equal").removeAttr("disable");
+        });
+
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .calculator {
+            width: 300px;
+            height: auto;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #666;
+            border-radius: 4px;
+        }
+
+        .box-input {
+            width: calc(100% - 16px);
+            background-color: #f7f8f9;
+            border: 1px solid #666;
+            padding: 5px 7px;
+            font-size: 20px;
+            border-bottom: none;
+        }
+
+        .box-result {
+            width: calc(100% - 16px);
+            background-color: #f9f9f9;
+            border: 1px solid #666;
+            padding: 5px 7px;
+            font-size: 20px;
+            border-top: none;
+            text-align: right;
+        }
+
+        .box-button button {
+            width: 32.4%;
+            height: 40px;
+            margin-top: 5px;
+            font-size: 20px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button.number {
+            background-color: #387bb6;
+        }
+
+        button.operation {
+            background-color: #b12e90;
+        }
+
+        button.refresh {
+            background-color: #d9534f;
+        }
+
+        button.delete {
+            background-color: #f0ad4e;
+        }
+
+        button.dot,
+        button.equal {
+            background-color: #8dcde0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <input type="text" class="box-input" value="">
+        <input type="text" class="box-result" value="">
+        <div class="box-button">
+            <button class="refresh">CE</button>
+            <button class="delete">Del</button>
+            <button class="plus operation">+</button>
+            <button class="minus operation">-</button>
+            <button class="multi operation">*</button>
+            <button class="div operation">/</button>
+            <button class="number">9</button>
+            <button class="number">8</button>
+            <button class="number">7</button>
+            <button class="number">6</button>
+            <button class="number">5</button>
+            <button class="number">4</button>
+            <button class="number">3</button>
+            <button class="number">2</button>
+            <button class="number">1</button>
+            <button class="number">0</button>
+            <button class="dot">.</button>
+            <button class="equal">=</button>
+        </div>
+    </div>
+</body>
+
+</html>

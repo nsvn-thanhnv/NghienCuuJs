@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    ,<title>Promise</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        Promise.resolve(1).then(2).then(console.log);
+        Promise.resolve(1).then(() => 2).then(console.log);
+        // bat dong bo trong js
+        console.log("line 1");
+        setTimeout(function () {
+            console.log("line 2");
+        }, 1000);
+        console.log("line 3");
+        console.log("line 4");
+
+        function sendInvitation(element, time) {
+            var d = $.Deferred();
+            console.log("start send : " + element)
+            // element.click();
+            setTimeout(function () {
+                console.log("Done " + element + " after " + time);
+                d.resolve(element);
+            }, time);
+            return d.promise();
+        }
+        sendInvitation("A", 500);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

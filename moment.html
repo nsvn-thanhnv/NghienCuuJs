@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Moment</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            function testMM(event) {
+                var a = moment("2019-11-07");
+                var b = moment([2018, 02, 09]);
+
+                //format date time
+                console.log(moment().format("YYYY MMM DD"));
+                console.log(moment("2019-12-05").format("DD MMM YYYY"));
+
+                // xác nhận date time đưa vào có đúng format là date time không
+                console.log(moment("2019 12", "YYYY MM").isValid());
+                console.log(moment("2019 2 29", "YYYY MM DD").isValid());
+                console.log(moment("2019 12 31", "YYYY MM DD").isValid());
+                console.log(moment("2019 jan 30", "YYYY MMM DD").isValid());
+                console.log(moment("It is 2012-05-25", "YYYY-MM-DD").isValid());
+                console.log(moment("It is 2012-05-25", "YYYY-MM-DD", true).isValid());
+                console.log(moment("2012.05.25", "YYYY-MM-DD", true).isValid())
+                console.log(moment("2019-20-32").invalidAt());
+
+                // Các hàm thao tác với date time 
+                // add
+                // thời gian sau khi thêm 7 ngày, 1 tháng vào ngày hiện tại
+                console.log(moment().add(7, 'days').add(1, 'months'));
+                // subtract chain method
+                console.log(moment().subtract(1, "months").subtract(1, "hours"));
+                //start of time
+                console.log(moment().startOf('day'));
+                console.log(moment().startOf('year'));
+                //end of time
+                console.log(moment().endOf('year'));
+                //time from
+                console.log(moment('2018-12-07').fromNow());
+                console.log(moment('2018-12-07').fromNow(true));
+                console.log(a.from(b));
+                // day in month
+                console.log(moment('2019-02').daysInMonth());
+                // is leap year
+                console.log(moment([20]).isLeapYear());
+
+                event.stopPropagation();
+            }
+            $("#testmm").on("click", testMM);
+        });
+    </script>
+    <style type="text/css">
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <button id="testmm">Test Moment</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Phan biet agrs va paramam</title>
+    <script>
+        // parameters (tham số): danh sách các biến được liệt kê lúc định nghĩa hàm
+        // agrumentss (đối số): giá trị thực của biến truyền vào khi gọi hàm
+        
+        // Hàm argCheck với 3 tham số và xuất ra tổng các tham số
+        function argCheck(parameter1, parameter2, parameter3) {
+            console.log(parameter1 + parameter2 + parameter3);
+        }
+
+        // Hàm argCheck được gọi với 4 đối số
+        argCheck(1, 2, 3, 4);
+        // Xuất ra 6 (1 + 2 + 3, bỏ qua 4)
+
+        // Hàm argCheck được gọi với 2 đối số
+        argCheck(1, 2);
+        // Xuất ra NaN, bởi vì theo mặc định parameter3 gán giá trị undefined do không có
+        // Note: Không có lỗi xuất hiện
+
+        // The arguments parameter
+        // Mỗi hàm đều có 1 từ khóa agruments, truy cập đến các agruments truyền vào hàm 
+        function argumentVar(parameter1, parameter2, parameter3) {
+            console.log(arguments.length); // Xuất ra số lượng đối số được truyền vào.
+            console.log(arguments[3]); // Xuất ra giá trị đối số thứ 4 của đối tượng argument.
+            console.log(arguments[1])// Xuất ra giá trị đối số thứ 2 của đối tượng argument.
+        }
+
+        argumentVar(4, 6, 3, 5, 22);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

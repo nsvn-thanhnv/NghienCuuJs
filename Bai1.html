@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Bai1</title>
+</head>
+
+<body>
+    <script>
+        var n = 50;
+        var arrNumber = [];
+        // in ra so nguyen to tu 0-n dung vong for
+        for (let i = 0; i <= n; i++) {
+            if (isPrime(i)) {
+                arrNumber.push(i);
+            }
+        }
+        console.log(arrNumber);
+
+        // in ra so nguyen to tu 0-n dung vong while
+        var arrNumber = [];
+        let index = 0;
+        while (index <= n) {
+            if (isPrime1(index)) {
+                arrNumber.push(index);
+            }
+            index++;
+        }
+        console.log(arrNumber);
+
+        //check so nguyen to dung vong for 
+        function isPrime(number) {
+            if (number < 2) {
+                return false;
+            }
+            for (var i = 2; i <= Math.sqrt(number); i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        //check so nguyen to dung vong for 
+        function isPrime1(number) {
+            if (number < 2) {
+                return false;
+            }
+            let i = 2;
+            while (i <= Math.sqrt(number)) {
+                if (number % i == 0) {
+                    return false;
+                }
+                i++;
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>

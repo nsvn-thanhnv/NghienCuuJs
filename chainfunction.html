@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chain Function</title>
+    <meta charset="utf-8">
+    <script>
+        // define the class Human
+        class Human {
+
+            setName(name) {
+                this.name = name;
+                // nếu không return this như bên dưới khi sử dụng chain method sẽ gặp lỗi 
+                // chainfunction.html:37 Uncaught TypeError: Cannot read property 'setAge' of undefined
+                return this;
+            }
+
+            setAge(age) {
+                this.age = age;
+                return this;
+            }
+
+            info() {
+                console.log(this.name + " is " + this.age + " years old");
+                return this;
+            }
+        }
+
+        // don't use chain function
+        var human = new Human();
+        human.setName("Thanh");
+        human.setAge("24");
+        human.info();
+
+        // use chain function
+        // muốn sử dụng method chaining cần trả về đôi tượng hiện tại cuối hàm
+        new Human().setName("Thanh").setAge("24").info();
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test return true/false</title>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#theDiv').submit(function () {
+                alert('DIV!');
+            });
+            $('#theForm').submit(function (event) {
+                alert('FORM!');
+                // return true;
+                return false;
+                // event.preventDefault();
+                // event.stopPropagation();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="theDiv">
+        <form id="theForm" method="POST">
+            <input type="submit" value="submit" />
+        </form>
+    </div>​
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lodash And Moment</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/lodash/lodash/3.0.1/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //test phan lodash
+            function testLD(event) {
+                // 1 so phuong thuc voi mang
+                var array = ["hello", "goodbye"];
+                var other = ["hello", "goodbye"];
+                var users = [
+                    { 'user': 'hoang', 'age': 23, 'active': true },
+                    { 'user': 'thanh', 'age': 24, 'active': false },
+                    { 'user': 'b', 'age': 30, 'active': true },
+                    { 'user': 'c', 'age': 40, 'active': false },
+                    { 'user': 'a', 'age': 28, 'active': true }
+                ];
+                var d = new Date();
+
+                console.log(_.isEqual(array, other));
+                console.log(_.camelCase("Hello world"));
+                console.log(_.union(array, other));
+                console.log(array == other);
+                console.log(_.difference(array, other));
+
+                // 1 so phuong thuc voi string
+                console.log(_.trunc("Say hello world", 10));
+                console.log(_.trim("  say   hello   "));
+
+                // tim kiem cac phan tu
+                console.log(_.filter(users, function (o) { return o.age < 24; }));
+                console.log(_.filter(users, { 'age': 40 }));
+                console.log(_.filter(users, { 'active': false }));
+                console.log(_(users).filter('active', true).pluck('user').value());
+                //return false;
+                console.log(_.drop([1, 2, 3, 4, 5], 2));
+                console.log(_.size(users));
+
+                // 1 so bieu thuc kiem tra
+                console.log(_.isNull(null));
+                console.log(_.isNumber(Infinity));
+                console.log(_.isDate('Mon Dec 09 2019'));
+
+                console.log(_.isDate(d));
+                console.log(d);
+
+                console.log(_.flatten([1, 2, [4, 5, [8]]], true))
+
+                event.stopPropagation();
+            }
+            $("#testld").on("click", testLD);
+
+            function testMM(event) {
+                var a = moment("2019-11-07");
+                var b = moment([2018, 02, 09]);
+
+                //format date time
+                console.log(moment().format("YYYY MMM DD"));
+                console.log(moment("2019-12-05").format("DD MMM YYYY"));
+
+                // xác nhận date time đưa vào có đúng format là date time không
+                console.log(moment("2019 12", "YYYY MM").isValid());
+                console.log(moment("2019 2 29", "YYYY MM DD").isValid());
+                console.log(moment("2019 12 31", "YYYY MM DD").isValid());
+                console.log(moment("2019 jan 30", "YYYY MMM DD").isValid());
+                console.log(moment("It is 2012-05-25", "YYYY-MM-DD").isValid());
+                console.log(moment("It is 2012-05-25", "YYYY-MM-DD", true).isValid());
+                console.log(moment("2012.05.25", "YYYY-MM-DD", true).isValid())
+                console.log(moment("2019-20-32").invalidAt());
+
+                // Các hàm thao tác với date time 
+                // add
+                // thời gian sau khi thêm 7 ngày, 1 tháng vào ngày hiện tại
+                console.log(moment().add(7, 'days').add(1, 'months'));
+                // subtract chain method
+                console.log(moment().subtract(1, "months").subtract(1, "hours"));
+                //start of time
+                console.log(moment().startOf('day'));
+                console.log(moment().startOf('year'));
+                //end of time
+                console.log(moment().endOf('year'));
+                //time from
+                console.log(moment('2018-12-07').fromNow());
+                console.log(moment('2018-12-07').fromNow(true));
+                console.log(a.from(b));
+                // day in month
+                console.log(moment('2019-02').daysInMonth());
+                // is leap year
+                console.log(moment([20]).isLeapYear());
+
+                event.stopPropagation();
+            }
+            $("#testmm").on("click", testMM);
+        })
+    </script>
+    <style type="text/css">
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <button id="testld">Test Lodash</button>
+        <button id="testmm">Test Moment</button>
+    </div>
+</body>
+
+</html>

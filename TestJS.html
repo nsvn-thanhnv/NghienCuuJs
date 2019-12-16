@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+</head>
+
+<body>
+	<script>
+		function chainify(obj) {
+			Object.keys(obj).forEach(function (key) {
+				var member = obj[key];
+				if (typeof member === "function" && !/\breturn\b/.test(member)) {
+					obj[key] = function () {
+						member.apply(this, arguments);
+						return this;
+					}
+				}
+			});
+		}
+
+		// define the class
+		var Kitten = function () {
+			this.name = 'Garfield';
+			this.color = 'brown';
+			this.gender = 'male';
+		};
+
+		Kitten.prototype.setName = function (name) {
+			this.name = name;
+		};
+
+		Kitten.prototype.setColor = function (color) {
+			this.color = color;
+		};
+
+		Kitten.prototype.setGender = function (gender) {
+			this.gender = gender;
+		};
+
+		Kitten.prototype.save = function () {
+			console.log(
+				'saving ' + this.name + ', the ' + this.color + ' ' + this.gender + ' kitten...'
+			);
+
+			// save to database here...
+		};
+
+		Kitten.prototype.sayHi = function (name) {
+			return "Hi " + name + "! My name is " + this.name + ".";
+		};
+
+		chainify(Kitten.prototype);
+
+		var bob = new Kitten()
+			.setName('Bob')
+			.setColor('black')
+			.setGender('male')
+			.save();
+
+		console.log(bob.sayHi("Tom")); 
+	</script>
+</body>
+
+</html>

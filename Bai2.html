@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Bai 2</title>
+</head>
+
+<body>
+    <script>
+        var n = 50;
+        // dem so so chia het cho 3 va 4 dung vong for
+        var tmp = 0;
+        for (let index = 0; index <= n; index++) {
+            if (div34(index)) {
+                tmp++;
+            }
+        }
+        console.log("So nhung so chia het cho 3 va 4 la: " + tmp);
+
+        // dem so so chia het cho 3 va 4 dung vong while
+        var tmp = 0;
+        let index1 = 0;
+        while (index1 <= n) {
+            if (div34(index1)) {
+                tmp++;
+            }
+            index1++;
+        }
+        console.log("So nhung so chia het cho 3 va 4 la: " + tmp);
+
+        // check so chia het cho 3 va 4
+        function div34(number) {
+            if (number % 3 == 0 && number % 4 == 0) {
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+
+</html>
