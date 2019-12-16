@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ajax</title>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        /*
+        AJAX - "Asynchronous JavaScript and XML" - là một bộ công cụ cho phép load dữ liệu từ server 
+        mà không yêu cầu tải lại trang.
+        Nó sử dụng chức năng sẵn có XMLHttpRequest(XHR) của trình duyệt.
+        */
+        $(document).ready(function () {
+            // use ajax()
+            $("#load-du-lieu-ajax").click(function () {
+                event.preventDefault();
+                $.ajax({
+                    // url 
+                    dataType: 'html',
+                    url: "https://rawgit.com/o7planning/webexamples/master/_testdatas_/simple-xml-data.xml", // link gửi ajax đếnđến
+                    type: "GET",
+                     // phương thức gửi
+                    // có thể dùng success hoặc sử dụng done()
+                    /*
+                    success: function (data) {
+                        $("#result1").html(data)
+                    },
+                    */
+                    error: function () {
+                        $("#result").html("<p>Error</p>");
+                    }
+                }).done(function (data) {
+                    $("#result1").html(data);
+                }).then(n => console.log(n));
+            });
+
+            //use XMLHttpRequest
+            $("#load-du-lieu-xmlhttp").on("click", function (event) {
+                let xhttp = new XMLHttpRequest();
+                let URL = "https://rawgit.com/o7planning/webexamples/master/_testdatas_/simple-xml-data.xml";
+
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("result").innerHTML =
+                            this.responseText;
+                    }
+                };
+                xhttp.open("GET", URL, true);
+                xhttp.send();
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <div id="result1"></div>
+    <div id="result"></div>
+    <div><button id="load-du-lieu-ajax">Ajax!</button></div>
+    <div><button id="load-du-lieu-xmlhttp">XMLHttpRequest</button></div>
+</body>
+
+</html>

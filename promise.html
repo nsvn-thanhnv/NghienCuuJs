@@ -6,9 +6,24 @@
     ,<title>Promise</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        Promise.resolve(1).then(2).then(console.log);
-        Promise.resolve(1).then(() => 2).then(console.log);
-        // bat dong bo trong js
+        /* 
+        Promise: là một đối tượng đặc biệt dùng cho các xử lý bất đồng bộ.
+        Một promise thể hiện một giá trị chưa được biết đến
+        Một deferred được hoãn lại là công việc chưa hoàn thành
+        */
+        class User {
+            constructor(user) {
+                this.user = user;
+            }
+
+            getUserName() {
+                return this.user.getUserName;
+            }
+        }
+
+        let user = new User({ username: "Thanh" });
+
+        // bất đồng bộ trong js
         console.log("line 1");
         setTimeout(function () {
             console.log("line 2");
@@ -16,12 +31,43 @@
         console.log("line 3");
         console.log("line 4");
 
+        // phải đưa thêm vào then() 1 hàm 
+        Promise.resolve(1).then(2).then(console.log); // 1
+        Promise.resolve(1).then(() => 2).then(console.log); // 2
+
+        //chaining nhiều promise
+        Promise.resolve(1).then(() => { return "Thanh" })
+            .then(result => { console.log(result); return "Result1" }) // Thanh
+            .then(result2 => console.log(result2)) // Result1
+            .catch(err => "Error");
+
+        // promise.reject()
+        Promise.resolve(12)
+            .then(result => console.log(result)) // 12
+            .then(res => Promise.reject("Dừng lại"))
+            .then(() => "Chạy tiếp").then(console.log) // k in ra chạy tiếp do có lỗi
+            .catch(err => console.error(err)); // Error: Dừng lại
+
+        // tham chiếu hàm 
+        const add2 = x => x + 2;
+        Promise.resolve(4).then(add2).then(console.log);
+        // cách tham chiếu hàm getUserName() không bị lỗi
+        Promise.resolve().then(() => user.getUserName()).then(console.log);
+        /*
+        - Hoặc sử dụng:
+        .then(user.getUserName.bind(u));
+        hoặc sửa lại phương thức
+        getUsername = () => {
+        return this.user.username
+        }
+        */
+
+        // deferred
         function sendInvitation(element, time) {
             var d = $.Deferred();
             console.log("start send : " + element)
-            // element.click();
             setTimeout(function () {
-                console.log("Done " + element + " after " + time);
+                console.log("Done " + element + " after " + time + " milliseconds");
                 d.resolve(element);
             }, time);
             return d.promise();
