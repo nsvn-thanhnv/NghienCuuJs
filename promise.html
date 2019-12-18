@@ -3,13 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    ,<title>Promise</title>
+    <title>Promise</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         /* 
         Promise: là một đối tượng đặc biệt dùng cho các xử lý bất đồng bộ.
-        Một promise thể hiện một giá trị chưa được biết đến
-        Một deferred được hoãn lại là công việc chưa hoàn thành
+        Promise có 3 trạng thái:
+        - pending: đang xử lí
+        - fulfilled: đã hoàn thành
+        - rejected: đã bị từ chối 
         */
         class User {
             constructor(user) {
@@ -23,6 +25,20 @@
 
         let user = new User({ username: "Thanh" });
 
+        // khai báo các promise 
+        var p1 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 1000, "Hello");
+        });
+        var p2 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 2000, "Promise");
+        });
+        var p3 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 3000, "all()");
+        });
+        var p4 = new Promise((resolve, reject) => {
+            reject("Reject");
+        });
+
         // bất đồng bộ trong js
         console.log("line 1");
         setTimeout(function () {
@@ -35,7 +51,7 @@
         Promise.resolve(1).then(2).then(console.log); // 1
         Promise.resolve(1).then(() => 2).then(console.log); // 2
 
-        //chaining nhiều promise
+        // chaining nhiều promise
         Promise.resolve(1).then(() => { return "Thanh" })
             .then(result => { console.log(result); return "Result1" }) // Thanh
             .then(result2 => console.log(result2)) // Result1
@@ -62,17 +78,35 @@
         }
         */
 
-        // deferred
-        function sendInvitation(element, time) {
-            var d = $.Deferred();
-            console.log("start send : " + element)
-            setTimeout(function () {
-                console.log("Done " + element + " after " + time + " milliseconds");
-                d.resolve(element);
-            }, time);
-            return d.promise();
+        // promise.all(): đợi tất cả các promise kết thúc hoặc dừng lại khi 1 promise thất bại, trả về đúng thứ tự như promise đầu vào 
+        Promise.all([p1, p2, p3]).then(values => { console.log(values) });
+        Promise.all([p1, p2, p3, p4]).then(values => { console.log(values) })
+            .catch(reason => { console.log(reason) });
+
+        // finally(): kích hoạt dù promise trước nó có lỗi hay không 
+        Promise.all([p1, p2, p3, p4]).then(values => { console.log(values) })
+            .catch(reason => { console.log(reason) })
+            .finally(console.log("Finally"));
+
+        // promise.race(): nhận vào 1 mảng promise, sẽ resolve/reject khi 1 trong các promise hoàn thành/thất bại 
+        Promise.race([p1, p2, p3]).then(values => { console.log(values) });
+
+        /*
+        Async và await
+        - async khai báo một hàm bất đồng bộ
+        - await luôn nằm trong hàm async
+        - await chỉ làm việc với Promises
+        - await được đặt trước một Promise, nó sẽ đợi cho đến khi Promise kết thúc và trả về kết quả.
+        */
+        async function testAsync() {
+            let a = await p3;
+            let b = await p2;
+            let result = await Promise.all([p1, p2, p3, p4]);
+            console.log(result)
+            console.log(b);
+            console.log(a);
         }
-        sendInvitation("A", 500);
+        testAsync();
     </script>
 </head>
 

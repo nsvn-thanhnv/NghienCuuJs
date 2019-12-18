@@ -12,6 +12,37 @@
         Nó sử dụng chức năng sẵn có XMLHttpRequest(XHR) của trình duyệt.
         */
         $(document).ready(function () {
+            // khởi tạo promise lấy dữ liệu 
+            var promise = new Promise(function (resolve, reject) {
+                // sử dụng XMLHtppRequest
+                var request = new XMLHttpRequest();
+                request.open("GET", "http://api.icndb.com/jokes/random", true);
+                request.onload = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        resolve(request.response); // lấy được dữ liệu, resolve promise 
+                    } else {
+                        reject(Error(request.statusText)); // không lấy được dữ liệu, reject 
+                    }
+                }
+                request.onerror = function () {
+                    reject(Error("Error fecthing data")); // có lỗi sẽ reject promise ;
+                }
+                request.send(); // gửi request 
+            });
+
+            $("#test-promise-xmlhttp").on("click", function (event) {
+                event.preventDefault();
+                promise.then(function (data) {
+                    console.log("Promise fulfilled");
+                    let tmp = JSON.parse(data).value.joke; // xử lí json, lấy về value joke 
+                    $("#result2").html(tmp);
+                    console.log(tmp);
+                }, function (error) {
+                    console.log('Promise rejected.');
+                    console.log(error.message);
+                });
+            });
+
             // use ajax()
             $("#load-du-lieu-ajax").click(function () {
                 event.preventDefault();
@@ -19,8 +50,8 @@
                     // url 
                     dataType: 'html',
                     url: "https://rawgit.com/o7planning/webexamples/master/_testdatas_/simple-xml-data.xml", // link gửi ajax đếnđến
-                    type: "GET",
-                     // phương thức gửi
+                    method: "GET",
+                    // phương thức gửi
                     // có thể dùng success hoặc sử dụng done()
                     /*
                     success: function (data) {
@@ -35,7 +66,7 @@
                 }).then(n => console.log(n));
             });
 
-            //use XMLHttpRequest
+            // use XMLHttpRequest
             $("#load-du-lieu-xmlhttp").on("click", function (event) {
                 let xhttp = new XMLHttpRequest();
                 let URL = "https://rawgit.com/o7planning/webexamples/master/_testdatas_/simple-xml-data.xml";
@@ -56,8 +87,10 @@
 <body>
     <div id="result1"></div>
     <div id="result"></div>
+    <div id="result2"></div>
     <div><button id="load-du-lieu-ajax">Ajax!</button></div>
     <div><button id="load-du-lieu-xmlhttp">XMLHttpRequest</button></div>
+    <div><button id="test-promise-xmlhttp">Joke!</button></div>
 </body>
 
 </html>

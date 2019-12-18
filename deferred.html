@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Defferd in jquery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        /*
+        Các bước tạo deffered riêng:
+        - tạo deffered bên trong hàm
+        - sử dụng deffered kích hoạt sự kiện
+        - trả lại đối tượng promise 
+        */
+        // deferred
+        function sendInvitation(element, time) {
+            var d = $.Deferred();
+            console.log("start send : " + element)
+            setTimeout(function () {
+                console.log("Done " + element + " after " + time + " milliseconds");
+                d.resolve(element);
+            }, time);
+            return d.promise();
+        }
+        sendInvitation("A", 500);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
