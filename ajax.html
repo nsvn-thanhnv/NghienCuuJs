@@ -48,12 +48,11 @@
                 event.preventDefault();
                 $.ajax({
                     // url 
-                    dataType: 'html',
+                    dataType: 'html', // xác định kiểu dữ liệu trả về
                     url: "https://rawgit.com/o7planning/webexamples/master/_testdatas_/simple-xml-data.xml", // link gửi ajax đếnđến
-                    method: "GET",
-                    // phương thức gửi
-                    // có thể dùng success hoặc sử dụng done()
+                    method: "GET", // phương thức gửi đi 
                     /*
+                    - có thể dùng success hoặc sử dụng done()
                     success: function (data) {
                         $("#result1").html(data)
                     },

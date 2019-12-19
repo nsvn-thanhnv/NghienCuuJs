@@ -11,10 +11,13 @@
         - tạo deffered bên trong hàm
         - sử dụng deffered kích hoạt sự kiện
         - trả lại đối tượng promise 
+        - khi Object Deferred được tạo thì object Promise cũng tự động sinh ra
         */
         // deferred
         function sendInvitation(element, time) {
             var d = $.Deferred();
+            console.log(d);
+            console.log(d.promise());
             console.log("start send : " + element)
             setTimeout(function () {
                 console.log("Done " + element + " after " + time + " milliseconds");
@@ -23,6 +26,49 @@
             return d.promise();
         }
         sendInvitation("A", 500);
+
+        function delayHello() {
+            var d1 = $.Deferred();
+            setTimeout(function () {
+                console.log("Hello");
+                d1.resolve();
+            }, 2000);
+            return d1.promise();
+        }
+
+        function delayError() {
+            var d2 = $.Deferred();
+            setTimeout(function () {
+                d2.reject("Error");
+            }, 3000);
+            return d2.promise();
+        }
+
+        function hello1() {
+            console.log('Hello 1');
+        }
+
+        function hello2() {
+            console.log('Hello 2 ');
+        }
+
+        // done() va fail()
+        delayHello().done(hello1); // Hello; Hello 1
+        delayHello().fail(hello1); // Hello
+
+        // sử dụng .then(), ta có thể đăng ký cả 2 callback .done() và .fail() đồng thời.
+        delayHello().then(hello1, hello2); // Hello; Hello 11
+        delayError().then(hello1, hello2); // Hello 2
+
+        // thực thi việc xử lý bất đồng bộ theo dạng trình tự từng bước
+        delayHello().then(delayHello).then(delayHello); // cứ sau 1s in ra "Hello"
+
+        // sửa lỗi khi có lỗi 
+        delayError().then(hello1, function (e) {
+            console.log(e);
+            console.log("Fixed");
+            return new $.Deferred().resolve().promise();
+        }).then(hello1, hello2);
     </script>
 </head>
 
