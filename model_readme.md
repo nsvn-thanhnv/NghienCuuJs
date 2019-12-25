@@ -5,7 +5,7 @@
 ![](https://images.viblo.asia/b20c8a14-411c-463d-b29b-0d266957b1f2.png)
 
 ## MVVM: 
-+ Mô hình MVVM hỗ trợ two-way data binding giữa View và View-Model. Điều này cho phép tự động lan truyền sự thay đổi, trong state của View-Model đến View.
++ Mô hình MVVM hỗ trợ two-way data binding giữa View và View-Model. Điều này cho phép cập nhật tự động sự thay đổi ở trong ViewModel đến View, làm View giống như một ánh xạ hiển thị trạng thái của ViewModel ở mọi thời điểm. Đồng thời cho phép View cập nhật tự động ngược lại những input dữ liệu hoặc action của user đến ViewModel.
 + Nên dùng MVVM khi có thể binding dữ liệu thông qua DataContext.
 + Cả 3 phần View, ViewModel, Model đều chạy phía client side
 + Có thể thay thế tâng View trong MVC bằng MVVM
@@ -15,6 +15,7 @@
 + Là lớp trung gian giữa View và Model, xem như là thành phần thay thế cho Controller trong MVC
 + ViewModel không hề biết gì về View, một ViewModel có thể được sử dụng cho nhiều View (one-to-many). 
 + ViewModel sử dụng Observer design pattern để liên lạc với View (thường được gọi là binding data, có thể là 1 chiều hoặc 2 chiều tùy nhu cầu ứng dụng).
+![](https://miro.medium.com/max/1748/1*1WmGkV517yA99bwk0P7m-g.png)
 
 ### Model
 + Model là các đối tượng giúp truy xuất và thao tác trên dữ liệu thực sự.
